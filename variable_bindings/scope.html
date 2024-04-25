@@ -213,45 +213,44 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="scope-and-shadowing"><a class="header" href="#scope-and-shadowing">Scope and Shadowing</a></h1>
-<p>Variable bindings have a scope, and are constrained to live in a <em>block</em>. A
-block is a collection of statements enclosed by braces <code>{}</code>.</p>
+                        <h1 id="alcance-y-enmascaramiento"><a class="header" href="#alcance-y-enmascaramiento">Alcance y enmascaramiento</a></h1>
+<p>Los enlaces de variables tienen un ámbito y están restringidos a vivir en un <em>bloque</em>. Un bloque es una colección de declaraciones encerradas entre llaves <code>{}</code>.</p>
 <pre><pre class="playground"><code class="language-rust editable ignore mdbook-runnable edition2021">fn main() {
-    // This binding lives in the main function
-    let long_lived_binding = 1;
+    // Este enlace vive en la función principal
+    let enlace_largo_vivido = 1;
 
-    // This is a block, and has a smaller scope than the main function
+    // Este es un bloque y tiene un ámbito más pequeño que la función principal
     {
-        // This binding only exists in this block
-        let short_lived_binding = 2;
+        // Este enlace solo existe en este bloque
+        let enlace_corto_vivido = 2;
 
-        println!("inner short: {}", short_lived_binding);
+        println!("interno corto: {}", enlace_corto_vivido);
     }
-    // End of the block
+    // Fin del bloque
 
-    // Error! `short_lived_binding` doesn't exist in this scope
-    println!("outer short: {}", short_lived_binding);
-    // FIXME ^ Comment out this line
+    // Error! `enlace_corto_vivido` no existe en este ámbito
+    println!("externo corto: {}", enlace_corto_vivido);
+    // FIXME ^ Comenta esta línea
 
-    println!("outer long: {}", long_lived_binding);
+    println!("externo largo: {}", enlace_largo_vivido);
 }</code></pre></pre>
-<p>Also, <a href="https://en.wikipedia.org/wiki/Variable_shadowing">variable shadowing</a> is allowed.</p>
+<p>Además, se permite <a href="https://en.wikipedia.org/wiki/Variable_shadowing">sombreado de variables</a>.</p>
 <pre><pre class="playground"><code class="language-rust editable ignore mdbook-runnable edition2021">fn main() {
-    let shadowed_binding = 1;
+    let enlace_sombreado = 1;
 
     {
-        println!("before being shadowed: {}", shadowed_binding);
+        println!("antes de ser sombreado: {}", enlace_sombreado);
 
-        // This binding *shadows* the outer one
-        let shadowed_binding = "abc";
+        // Este enlace *sombrea* al externo
+        let enlace_sombreado = "abc";
 
-        println!("shadowed in inner block: {}", shadowed_binding);
+        println!("sombreado en bloque interno: {}", enlace_sombreado);
     }
-    println!("outside inner block: {}", shadowed_binding);
+    println!("fuera del bloque interno: {}", enlace_sombreado);
 
-    // This binding *shadows* the previous binding
-    let shadowed_binding = 2;
-    println!("shadowed in outer block: {}", shadowed_binding);
+    // Este enlace *sombrea* al enlace anterior
+    let enlace_sombreado = 2;
+    println!("sombreado en bloque externo: {}", enlace_sombreado);
 }</code></pre></pre>
 
                     </main>

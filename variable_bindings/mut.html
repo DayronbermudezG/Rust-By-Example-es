@@ -213,24 +213,23 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="mutability"><a class="header" href="#mutability">Mutability</a></h1>
-<p>Variable bindings are immutable by default, but this can be overridden using
-the <code>mut</code> modifier.</p>
+                        <h1 id="mutabilidad"><a class="header" href="#mutabilidad">Mutabilidad</a></h1>
+<p>Los enlaces de variables son inmutables por defecto, pero esto puede ser anulado usando el modificador <code>mut</code>.</p>
 <pre><pre class="playground"><code class="language-rust editable ignore mdbook-runnable edition2021">fn main() {
-    let _immutable_binding = 1;
-    let mut mutable_binding = 1;
+    let _enlace_inmutable = 1;
+    let mut enlace_mutable = 1;
 
-    println!("Before mutation: {}", mutable_binding);
+    println!("Antes de la mutación: {}", enlace_mutable);
 
     // Ok
-    mutable_binding += 1;
+    enlace_mutable += 1;
 
-    println!("After mutation: {}", mutable_binding);
+    println!("Después de la mutación: {}", enlace_mutable);
 
-    // Error! Cannot assign a new value to an immutable variable
-    _immutable_binding += 1;
+    // Error! No se puede asignar un nuevo valor a una variable inmutable
+    _enlace_inmutable += 1;
 }</code></pre></pre>
-<p>The compiler will throw a detailed diagnostic about mutability errors.</p>
+<p>El compilador arrojará un diagnóstico detallado sobre errores de mutabilidad.</p>
 
                     </main>
 
