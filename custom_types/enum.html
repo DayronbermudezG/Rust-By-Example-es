@@ -214,91 +214,84 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="enums"><a class="header" href="#enums">Enums</a></h1>
-<p>The <code>enum</code> keyword allows the creation of a type which may be one of a few
-different variants. Any variant which is valid as a <code>struct</code> is also valid in
-an <code>enum</code>.</p>
-<pre><pre class="playground"><code class="language-rust editable edition2021">// Create an `enum` to classify a web event. Note how both
-// names and type information together specify the variant:
-// `PageLoad != PageUnload` and `KeyPress(char) != Paste(String)`.
-// Each is different and independent.
-enum WebEvent {
-    // An `enum` variant may either be `unit-like`,
-    PageLoad,
-    PageUnload,
-    // like tuple structs,
-    KeyPress(char),
-    Paste(String),
-    // or c-like structures.
-    Click { x: i64, y: i64 },
+<p>La palabra clave <code>enum</code> permite la creación de un tipo que puede ser una de varias variantes diferentes. Cualquier variante que sea válida como una <code>struct</code> también es válida en un <code>enum</code>.</p>
+<pre><pre class="playground"><code class="language-rust editable edition2021">// Crear un `enum` para clasificar un evento web. Observa cómo tanto
+// los nombres como la información de tipo especifican la variante:
+// `PageLoad != PageUnload` y `KeyPress(char) != Paste(String)`.
+// Cada uno es diferente e independiente.
+enum EventoWeb {
+    // Una variante de `enum` puede ser tanto "unit-like",
+    CargaDePágina,
+    DescargaDePágina,
+    // como tuplas estructuradas,
+    PresionarTecla(char),
+    Pegar(String),
+    // o estructuras al estilo C.
+    Clic { x: i64, y: i64 },
 }
 
-// A function which takes a `WebEvent` enum as an argument and
-// returns nothing.
-fn inspect(event: WebEvent) {
-    match event {
-        WebEvent::PageLoad =&gt; println!("page loaded"),
-        WebEvent::PageUnload =&gt; println!("page unloaded"),
-        // Destructure `c` from inside the `enum` variant.
-        WebEvent::KeyPress(c) =&gt; println!("pressed '{}'.", c),
-        WebEvent::Paste(s) =&gt; println!("pasted \"{}\".", s),
-        // Destructure `Click` into `x` and `y`.
-        WebEvent::Click { x, y } =&gt; {
-            println!("clicked at x={}, y={}.", x, y);
+// Una función que toma un `enum EventoWeb` como argumento
+// y no devuelve nada.
+fn inspeccionar(evento: EventoWeb) {
+    match evento {
+        EventoWeb::CargaDePágina =&gt; println!("página cargada"),
+        EventoWeb::DescargaDePágina =&gt; println!("página descargada"),
+        // Desestructurar `c` desde dentro de la variante de `enum`.
+        EventoWeb::PresionarTecla(c) =&gt; println!("tecla '{}' presionada.", c),
+        EventoWeb::Pegar(s) =&gt; println!("pegado \"{}\".", s),
+        // Desestructurar `Clic` en `x` e `y`.
+        EventoWeb::Clic { x, y } =&gt; {
+            println!("clic en x={}, y={}.", x, y);
         },
     }
 }
 
 fn main() {
-    let pressed = WebEvent::KeyPress('x');
-    // `to_owned()` creates an owned `String` from a string slice.
-    let pasted  = WebEvent::Paste("my text".to_owned());
-    let click   = WebEvent::Click { x: 20, y: 80 };
-    let load    = WebEvent::PageLoad;
-    let unload  = WebEvent::PageUnload;
+    let presionado = EventoWeb::PresionarTecla('x');
+    // `to_owned()` crea un `String` de propiedad desde una rebanada de cadena.
+    let pegado  = EventoWeb::Pegar("mi texto".to_owned());
+    let clic   = EventoWeb::Clic { x: 20, y: 80 };
+    let carga    = EventoWeb::CargaDePágina;
+    let descarga  = EventoWeb::DescargaDePágina;
 
-    inspect(pressed);
-    inspect(pasted);
-    inspect(click);
-    inspect(load);
-    inspect(unload);
+    inspeccionar(presionado);
+    inspeccionar(pegado);
+    inspeccionar(clic);
+    inspeccionar(carga);
+    inspeccionar(descarga);
 }
 </code></pre></pre>
-<h2 id="type-aliases"><a class="header" href="#type-aliases">Type aliases</a></h2>
-<p>If you use a type alias, you can refer to each enum variant via its alias.
-This might be useful if the enum's name is too long or too generic, and you
-want to rename it.</p>
-<pre><pre class="playground"><code class="language-rust editable edition2021">enum VeryVerboseEnumOfThingsToDoWithNumbers {
-    Add,
-    Subtract,
+<h2 id="alias-de-tipos"><a class="header" href="#alias-de-tipos">Alias de tipos</a></h2>
+<p>Si usas un alias de tipo, puedes referirte a cada variante de enum mediante su alias. Esto puede ser útil si el nombre del enum es demasiado largo o demasiado genérico y deseas renombrarlo.</p>
+<pre><pre class="playground"><code class="language-rust editable edition2021">enum EnumMuyLargoDeCosasQueHacerConNúmeros {
+    Sumar,
+    Restar,
 }
 
-// Creates a type alias
-type Operations = VeryVerboseEnumOfThingsToDoWithNumbers;
+// Crea un alias de tipo
+type Operaciones = EnumMuyLargoDeCosasQueHacerConNúmeros;
 
 fn main() {
-    // We can refer to each variant via its alias, not its long and inconvenient
-    // name.
-    let x = Operations::Add;
+    // Podemos referirnos a cada variante mediante su alias, no su nombre largo e incómodo
+    let x = Operaciones::Sumar;
 }</code></pre></pre>
-<p>The most common place you'll see this is in <code>impl</code> blocks using the <code>Self</code> alias.</p>
-<pre><pre class="playground"><code class="language-rust editable edition2021">enum VeryVerboseEnumOfThingsToDoWithNumbers {
-    Add,
-    Subtract,
+<p>El lugar más común donde verás esto es en bloques <code>impl</code> que usan el alias <code>Self</code>.</p>
+<pre><pre class="playground"><code class="language-rust editable edition2021">enum EnumMuyLargoDeCosasQueHacerConNúmeros {
+    Sumar,
+    Restar,
 }
 
-impl VeryVerboseEnumOfThingsToDoWithNumbers {
-    fn run(&amp;self, x: i32, y: i32) -&gt; i32 {
+impl EnumMuyLargoDeCosasQueHacerConNúmeros {
+    fn ejecutar(&amp;self, x: i32, y: i32) -&gt; i32 {
         match self {
-            Self::Add =&gt; x + y,
-            Self::Subtract =&gt; x - y,
+            Self::Sumar =&gt; x + y,
+            Self::Restar =&gt; x - y,
         }
     }
 }</code></pre></pre>
-<p>To learn more about enums and type aliases, you can read the
-<a href="https://github.com/rust-lang/rust/pull/61682/#issuecomment-502472847">stabilization report</a> from when this feature was stabilized into
-Rust.</p>
-<h3 id="see-also"><a class="header" href="#see-also">See also:</a></h3>
-<p><a href="../flow_control/match.html"><code>match</code></a>, <a href="../fn.html"><code>fn</code></a>, and <a href="../std/str.html"><code>String</code></a>, <a href="https://rust-lang.github.io/rfcs/2338-type-alias-enum-variants.html">"Type alias enum variants" RFC</a></p>
+<p>Para aprender más sobre enums y alias de tipos, puedes leer el <a href="https://github.com/rust-lang/rust/pull/61682/#issuecomment-502472847">informe de estabilización</a> desde cuando esta característica se estabilizó en Rust.</p>
+<h3 id="ver-también"><a class="header" href="#ver-también">Ver también:</a></h3>
+<p><a href="../flow_control/match.html"><code>match</code></a>, <a href="../fn.html"><code>fn</code></a>, y <a href="../std/str.html"><code>String</code></a>, <a href="https://rust-lang.github.io/rfcs/2338-type-alias-enum-variants.html">"Type alias enum variants" RFC</a></p>
 
                     </main>
 

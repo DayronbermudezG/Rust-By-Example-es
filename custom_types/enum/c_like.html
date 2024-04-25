@@ -214,33 +214,33 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="c-like"><a class="header" href="#c-like">C-like</a></h1>
-<p><code>enum</code> can also be used as C-like enums.</p>
-<pre><pre class="playground"><code class="language-rust editable edition2021">// An attribute to hide warnings for unused code.
+<p><code>enum</code> también se puede usar como enums al estilo C.</p>
+<pre><pre class="playground"><code class="language-rust editable edition2021">// Un atributo para ocultar advertencias por código no utilizado.
 #![allow(dead_code)]
 
-// enum with implicit discriminator (starts at 0)
-enum Number {
-    Zero,
-    One,
-    Two,
+// enum con discriminador implícito (comienza en 0)
+enum Numero {
+    Cero,
+    Uno,
+    Dos,
 }
 
-// enum with explicit discriminator
+// enum con discriminador explícito
 enum Color {
-    Red = 0xff0000,
-    Green = 0x00ff00,
-    Blue = 0x0000ff,
+    Rojo = 0xff0000,
+    Verde = 0x00ff00,
+    Azul = 0x0000ff,
 }
 
 fn main() {
-    // `enums` can be cast as integers.
-    println!("zero is {}", Number::Zero as i32);
-    println!("one is {}", Number::One as i32);
+    // `enums` se pueden convertir a enteros.
+    println!("cero es {}", Numero::Cero as i32);
+    println!("uno es {}", Numero::Uno as i32);
 
-    println!("roses are #{:06x}", Color::Red as i32);
-    println!("violets are #{:06x}", Color::Blue as i32);
+    println!("las rosas son #{:06x}", Color::Rojo as i32);
+    println!("las violetas son #{:06x}", Color::Azul as i32);
 }</code></pre></pre>
-<h3 id="see-also"><a class="header" href="#see-also">See also:</a></h3>
+<h3 id="ver-también"><a class="header" href="#ver-también">Ver también:</a></h3>
 <p><a href="../../types/cast.html">casting</a></p>
 
                     </main>

@@ -214,46 +214,46 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="use"><a class="header" href="#use">use</a></h1>
-<p>The <code>use</code> declaration can be used so manual scoping isn't needed:</p>
-<pre><pre class="playground"><code class="language-rust editable edition2021">// An attribute to hide warnings for unused code.
+<p>La declaración <code>use</code> se puede utilizar para no necesitar alcances manuales:</p>
+<pre><pre class="playground"><code class="language-rust editable edition2021">// Un atributo para ocultar advertencias por código no utilizado.
 #![allow(dead_code)]
 
-enum Stage {
-    Beginner,
-    Advanced,
+enum Etapa {
+    Principiante,
+    Avanzado,
 }
 
-enum Role {
-    Student,
-    Teacher,
+enum Rol {
+    Estudiante,
+    Profesor,
 }
 
 fn main() {
-    // Explicitly `use` each name so they are available without
-    // manual scoping.
-    use crate::Stage::{Beginner, Advanced};
-    // Automatically `use` each name inside `Role`.
-    use crate::Role::*;
+    // Usar explícitamente cada nombre para que estén disponibles sin
+    // alcances manuales.
+    use crate::Etapa::{Principiante, Avanzado};
+    // Usar automáticamente cada nombre dentro de `Rol`.
+    use crate::Rol::*;
 
-    // Equivalent to `Stage::Beginner`.
-    let stage = Beginner;
-    // Equivalent to `Role::Student`.
-    let role = Student;
+    // Equivalente a `Etapa::Principiante`.
+    let etapa = Principiante;
+    // Equivalente a `Rol::Estudiante`.
+    let rol = Estudiante;
 
-    match stage {
-        // Note the lack of scoping because of the explicit `use` above.
-        Beginner =&gt; println!("Beginners are starting their learning journey!"),
-        Advanced =&gt; println!("Advanced learners are mastering their subjects..."),
+    match etapa {
+        // Observa la falta de alcance debido al `use` explícito arriba.
+        Principiante =&gt; println!("¡Los principiantes están comenzando su viaje de aprendizaje!"),
+        Avanzado =&gt; println!("¡Los alumnos avanzados están dominando sus temas..."),
     }
 
-    match role {
-        // Note again the lack of scoping.
-        Student =&gt; println!("Students are acquiring knowledge!"),
-        Teacher =&gt; println!("Teachers are spreading knowledge!"),
+    match rol {
+        // Observa nuevamente la falta de alcance.
+        Estudiante =&gt; println!("¡Los estudiantes están adquiriendo conocimientos!"),
+        Profesor =&gt; println!("¡Los profesores están difundiendo conocimientos!"),
     }
 }</code></pre></pre>
-<h3 id="see-also"><a class="header" href="#see-also">See also:</a></h3>
-<p><a href="../../flow_control/match.html"><code>match</code></a> and <a href="../../mod/use.html"><code>use</code></a></p>
+<h3 id="ver-también"><a class="header" href="#ver-también">Ver también:</a></h3>
+<p><a href="../../flow_control/match.html"><code>match</code></a> y <a href="../../mod/use.html"><code>use</code></a></p>
 
                     </main>
 

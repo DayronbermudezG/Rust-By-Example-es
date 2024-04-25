@@ -214,55 +214,55 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="testcase-linked-list"><a class="header" href="#testcase-linked-list">Testcase: linked-list</a></h1>
-<p>A common way to implement a linked-list is via <code>enums</code>:</p>
+<p>Una forma común de implementar una lista enlazada es mediante <code>enums</code>:</p>
 <pre><pre class="playground"><code class="language-rust editable edition2021">use crate::List::*;
 
 enum List {
-    // Cons: Tuple struct that wraps an element and a pointer to the next node
+    // Cons: Una tupla estructurada que envuelve un elemento y un puntero al siguiente nodo
     Cons(u32, Box&lt;List&gt;),
-    // Nil: A node that signifies the end of the linked list
+    // Nil: Un nodo que señala el final de la lista enlazada
     Nil,
 }
 
-// Methods can be attached to an enum
+// Se pueden adjuntar métodos a un enum
 impl List {
-    // Create an empty list
+    // Crear una lista vacía
     fn new() -&gt; List {
-        // `Nil` has type `List`
+        // `Nil` tiene tipo `List`
         Nil
     }
 
-    // Consume a list, and return the same list with a new element at its front
+    // Consumir una lista y devolver la misma lista con un nuevo elemento al principio
     fn prepend(self, elem: u32) -&gt; List {
-        // `Cons` also has type List
+        // `Cons` también tiene tipo List
         Cons(elem, Box::new(self))
     }
 
-    // Return the length of the list
+    // Devolver la longitud de la lista
     fn len(&amp;self) -&gt; u32 {
-        // `self` has to be matched, because the behavior of this method
-        // depends on the variant of `self`
-        // `self` has type `&amp;List`, and `*self` has type `List`, matching on a
-        // concrete type `T` is preferred over a match on a reference `&amp;T`
-        // after Rust 2018 you can use self here and tail (with no ref) below as well,
-        // rust will infer &amp;s and ref tail. 
-        // See https://doc.rust-lang.org/edition-guide/rust-2018/ownership-and-lifetimes/default-match-bindings.html
+        // `self` tiene que ser emparejado, porque el comportamiento de este método
+        // depende de la variante de `self`
+        // `self` tiene tipo `&amp;List`, y `*self` tiene tipo `List`, emparejar con un
+        // tipo concreto `T` es preferido sobre un emparejamiento con una referencia `&amp;T`
+        // después de Rust 2018 también puedes usar self aquí y tail (sin ref) debajo también,
+        // Rust inferirá &amp;s y ref tail.
+        // Ver: https://doc.rust-lang.org/edition-guide/rust-2018/ownership-and-lifetimes/default-match-bindings.html
         match *self {
-            // Can't take ownership of the tail, because `self` is borrowed;
-            // instead take a reference to the tail
+            // No se puede tomar propiedad de la cola, porque `self` está prestado;
+            // en su lugar, tomar una referencia a la cola
             Cons(_, ref tail) =&gt; 1 + tail.len(),
-            // Base Case: An empty list has zero length
+            // Caso base: Una lista vacía tiene longitud cero
             Nil =&gt; 0
         }
     }
 
-    // Return representation of the list as a (heap allocated) string
+    // Devolver la representación de la lista como una cadena (asignada en el heap)
     fn stringify(&amp;self) -&gt; String {
         match *self {
-            Cons(head, ref tail) =&gt; {
-                // `format!` is similar to `print!`, but returns a heap
-                // allocated string instead of printing to the console
-                format!("{}, {}", head, tail.stringify())
+            Cons(cabeza, ref cola) =&gt; {
+                // `format!` es similar a `print!`, pero devuelve una cadena asignada en el heap
+                // en lugar de imprimir en la consola
+                format!("{}, {}", cabeza, cola.stringify())
             },
             Nil =&gt; {
                 format!("Nil")
@@ -272,20 +272,20 @@ impl List {
 }
 
 fn main() {
-    // Create an empty linked list
-    let mut list = List::new();
+    // Crear una lista enlazada vacía
+    let mut lista = List::new();
 
-    // Prepend some elements
-    list = list.prepend(1);
-    list = list.prepend(2);
-    list = list.prepend(3);
+    // Agregar algunos elementos al principio
+    lista = lista.prepend(1);
+    lista = lista.prepend(2);
+    lista = lista.prepend(3);
 
-    // Show the final state of the list
-    println!("linked list has length: {}", list.len());
-    println!("{}", list.stringify());
+    // Mostrar el estado final de la lista
+    println!("La lista enlazada tiene longitud: {}", lista.len());
+    println!("{}", lista.stringify());
 }</code></pre></pre>
-<h3 id="see-also"><a class="header" href="#see-also">See also:</a></h3>
-<p><a href="../../std/box.html"><code>Box</code></a> and <a href="../../fn/methods.html">methods</a></p>
+<h3 id="ver-también"><a class="header" href="#ver-también">Ver también:</a></h3>
+<p><a href="../../std/box.html"><code>Box</code></a> y <a href="../../fn/methods.html">métodos</a></p>
 
                     </main>
 
